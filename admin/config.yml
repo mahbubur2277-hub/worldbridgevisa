@@ -6,7 +6,12 @@ backend:
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
+site_url: https://www.worldbridgevisa.com
+display_url: https://www.worldbridgevisa.com
+
 collections:
+
+  # WEBSITE PAGES
   - name: "pages"
     label: "Website Pages"
     folder: "content/pages"
@@ -20,5 +25,66 @@ collections:
         name: "description"
         widget: "text"
       - label: "Page Content"
+        name: "body"
+        widget: "markdown"
+
+  # VISA SERVICES
+  - name: "services"
+    label: "Visa Services"
+    folder: "content/services"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: "Service Name"
+        name: "title"
+        widget: "string"
+      - label: "Short Description"
+        name: "description"
+        widget: "text"
+      - label: "Service Image"
+        name: "image"
+        widget: "image"
+        required: false
+      - label: "Visa Category"
+        name: "category"
+        widget: "select"
+        options:
+          - "Visit Visa"
+          - "Study Visa"
+          - "Work Visa"
+          - "Business Visa"
+          - "Other"
+      - label: "Service Details"
+        name: "body"
+        widget: "markdown"
+
+  # NEWS AND UPDATES
+  - name: "news"
+    label: "News and Updates"
+    folder: "content/news"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: "News Title"
+        name: "title"
+        widget: "string"
+      - label: "Publication Date"
+        name: "date"
+        widget: "datetime"
+      - label: "News Image"
+        name: "image"
+        widget: "image"
+        required: false
+      - label: "News Category"
+        name: "category"
+        widget: "select"
+        options:
+          - "Canada"
+          - "USA"
+          - "UK"
+          - "Schengen"
+          - "Immigration Updates"
+          - "Company News"
+      - label: "News Content"
         name: "body"
         widget: "markdown"
