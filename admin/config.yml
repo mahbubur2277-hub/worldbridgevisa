@@ -1,0 +1,24 @@
+backend:
+  name: turbo-github
+  turbo_site_id: 6db208eb-4064-4c79-adc3-f8ec32b869cd
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "pages"
+    label: "Website Pages"
+    folder: "content/pages"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: "Page Title"
+        name: "title"
+        widget: "string"
+      - label: "Description"
+        name: "description"
+        widget: "text"
+      - label: "Page Content"
+        name: "body"
+        widget: "markdown"
