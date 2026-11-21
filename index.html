@@ -3,16 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <meta name="description" content="World Bridge (Durotech) - UK-based visa services, student consultancy and work visa support.">
-
 <title>World Bridge (Durotech) | Visa & Student Consultancy</title>
-
 <link rel="stylesheet" href="style.css">
 
 <style>
 /* VISA SUCCESS HISTORY SECTION */
-
 .success-section {
     padding: 65px 0;
     background: #ffffff;
@@ -63,27 +59,11 @@
     object-fit: contain;
     background: #f5f5f5;
     opacity: 0;
-    animation: successSlide 12s infinite;
+    transition: opacity 0.8s ease;
 }
 
-.success-slider img:nth-child(1) {
-    animation-delay: 0s;
-}
-
-.success-slider img:nth-child(2) {
-    animation-delay: 4s;
-}
-
-.success-slider img:nth-child(3) {
-    animation-delay: 8s;
-}
-
-@keyframes successSlide {
-    0% { opacity: 0; }
-    5% { opacity: 1; }
-    28% { opacity: 1; }
-    33.33% { opacity: 0; }
-    100% { opacity: 0; }
+.success-slider img.active {
+    opacity: 1;
 }
 
 @media (max-width: 768px) {
@@ -166,7 +146,6 @@ Chat on WhatsApp
 
 <!-- VISA SUCCESS HISTORY -->
 <section class="success-section">
-
 <div class="wrap success-layout">
 
 <div class="success-text">
@@ -192,34 +171,28 @@ Start Your Visit Visa Application
 
 </div>
 
-<!-- THREE EXISTING GITHUB IMAGES -->
+<!-- SIX IMAGE SLIDESHOW -->
+<div class="success-slider" id="successSlider">
 
-<div class="success-slider">
+<img src="images/pic%201.jpeg"
+alt="Visit Visa Success Picture 1"
+class="active">
 
-<img
-src="images/pic%201.jpeg"
-alt="Visit Visa Success Picture 1">
-
-<img
-src="images/pic%202.jpeg"
+<img src="images/pic%202.jpeg"
 alt="Visit Visa Success Picture 2">
 
-<img
-src="images/pic%203.jpeg"
+<img src="images/pic%203.jpeg"
 alt="Visit Visa Success Picture 3">
 
 </div>
-
 </div>
 </section>
 
 <!-- VISA SERVICES -->
 <section id="visa" class="section">
-
 <div class="wrap">
 
 <div class="heading">
-
 <div>
 <p class="eyebrow dark">VISA SERVICES</p>
 <h2>Travel with confidence.</h2>
@@ -229,7 +202,6 @@ alt="Visit Visa Success Picture 3">
 Guidance for visitors applying from the UK,
 tailored to the destination and application type.
 </p>
-
 </div>
 
 <div class="cards">
@@ -280,13 +252,11 @@ for other destinations.
 
 <!-- STUDENT CONSULTANCY -->
 <section id="students" class="section grey">
-
 <div class="wrap two feature">
 
 <div class="photo students"></div>
 
 <div>
-
 <p class="eyebrow dark">STUDENT CONSULTANCY</p>
 
 <h2>
@@ -308,18 +278,16 @@ universities and study opportunities.
 <a class="btn dark" href="#contact">
 Talk to a Consultant
 </a>
-
 </div>
+
 </div>
 </section>
 
 <!-- WORK VISA -->
 <section id="work" class="section">
-
 <div class="wrap two feature">
 
 <div>
-
 <p class="eyebrow dark">WORK VISA</p>
 
 <h2>
@@ -343,7 +311,6 @@ and individual circumstances.
 <a class="btn dark" href="#contact">
 Discuss Your Plans
 </a>
-
 </div>
 
 <div class="photo work"></div>
@@ -353,17 +320,14 @@ Discuss Your Plans
 
 <!-- ABOUT US -->
 <section id="about" class="about">
-
 <div class="wrap two">
 
 <div>
-
 <p class="eyebrow">ABOUT WORLD BRIDGE</p>
 
 <h2>
 Professional support from London.
 </h2>
-
 </div>
 
 <p>
@@ -379,11 +343,9 @@ to understand.
 
 <!-- CONTACT -->
 <section id="contact" class="section grey">
-
 <div class="wrap">
 
 <div class="heading">
-
 <div>
 <p class="eyebrow dark">CONTACT US</p>
 <h2>Let's discuss your plans.</h2>
@@ -393,7 +355,6 @@ to understand.
 Send us an enquiry and our team can discuss
 the next steps with you.
 </p>
-
 </div>
 
 <div class="contact two">
@@ -466,7 +427,6 @@ Send Enquiry
 
 <!-- FOOTER -->
 <footer>
-
 <div class="wrap two">
 
 <div>
@@ -489,8 +449,106 @@ worldbridgevisauk@gmail.com
 <small>
 © 2026 World Bridge (Durotech). All rights reserved.
 </small>
-
 </footer>
+
+<!-- SIX IMAGE SLIDESHOW AND WHOOSH SOUND -->
+<audio id="whooshSound" preload="auto">
+<source src="sounds/whoosh-10.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const slider = document.getElementById("successSlider");
+    const sound = document.getElementById("whooshSound");
+
+    if (!slider || !sound) return;
+
+    const imageFiles = [
+        "images/pic%201.jpeg",
+        "images/pic%202.jpeg",
+        "images/pic%203.jpeg",
+        "images/pic%204.jpeg",
+        "images/pic%205.jpeg",
+        "images/pic%206.jpeg"
+    ];
+
+    const loadedImages = [];
+
+    function loadImages() {
+
+        const checks = imageFiles.map(function (file, index) {
+
+            return new Promise(function (resolve) {
+
+                const img = new Image();
+
+                img.onload = function () {
+                    img.alt = "Visit Visa Success Picture " + (index + 1);
+                    resolve(img);
+                };
+
+                img.onerror = function () {
+                    resolve(null);
+                };
+
+                img.src = file;
+
+            });
+
+        });
+
+        Promise.all(checks).then(function (results) {
+
+            results.forEach(function (img) {
+                if (img) {
+                    loadedImages.push(img);
+                }
+            });
+
+            if (loadedImages.length === 0) return;
+
+            slider.innerHTML = "";
+
+            loadedImages.forEach(function (img, index) {
+
+                img.className = index === 0 ? "active" : "";
+                slider.appendChild(img);
+
+            });
+
+            if (loadedImages.length < 2) return;
+
+            let currentIndex = 0;
+
+            setInterval(function () {
+
+                loadedImages[currentIndex].classList.remove("active");
+
+                currentIndex = (currentIndex + 1) % loadedImages.length;
+
+                loadedImages[currentIndex].classList.add("active");
+
+                sound.currentTime = 0;
+
+                const playPromise = sound.play();
+
+                if (playPromise !== undefined) {
+                    playPromise.catch(function () {
+                        // Sound may require prior browser interaction.
+                    });
+                }
+
+            }, 4000);
+
+        });
+
+    }
+
+    loadImages();
+
+});
+</script>
 
 </body>
 </html>
